@@ -1856,6 +1856,11 @@ Mavlink::configure_streams_to_default(const char *configure_single_stream)
 		configure_stream_local("UAVIONIX_ADSB_OUT_DYNAMIC", 5.0f);
 		break;
 
+	case MAVLINK_MODE_LORARX:
+		_transmitting_enabled_commanded = false;
+        	_transmitting_enabled = false;
+		break;
+
 	default:
 		ret = -1;
 		break;
@@ -2099,6 +2104,9 @@ Mavlink::task_main(int argc, char *argv[])
 					} else if (strcmp(myoptarg, "uavionix") == 0) {
 						_mode = MAVLINK_MODE_UAVIONIX;
 
+					} else if (strcmp(myoptarg, "lorarx") == 0) {
+						_mode = MAVLINK_MODE_LORARX;
+
 					} else {
 						PX4_ERR("invalid mode");
 						err_flag = true;
@@ -2263,7 +2271,7 @@ Mavlink::task_main(int argc, char *argv[])
 	}
 
 	/* add default streams depending on mode */
-	if (_mode != MAVLINK_MODE_IRIDIUM) {
+	if (_mode != MAVLINK_MODE_IRIDIUM && _mode != MAVLINK_MODE_LORARX) {
 
 		/* HEARTBEAT is constant rate stream, rate never adjusted */
 		configure_stream("HEARTBEAT", 1.0f);
@@ -2346,6 +2354,7 @@ Mavlink::task_main(int argc, char *argv[])
 
 		if (!should_transmit()) {
 			check_requested_subscriptions();
+			if (_mode == MAVLINK_MODE_LORARX) publish_telemetry_status();
 			handleStatus();
 			handleCommands();
 			handleAndGetCurrentCommandAck();
