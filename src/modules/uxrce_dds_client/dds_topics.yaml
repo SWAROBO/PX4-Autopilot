@@ -4,7 +4,7 @@
 #
 #####
 publications:
-
+# removed from --->
   - topic: /fmu/out/register_ext_component_reply
     type: px4_msgs::msg::RegisterExtComponentReply
 
@@ -64,6 +64,7 @@ publications:
 
   - topic: /fmu/out/vehicle_local_position
     type: px4_msgs::msg::VehicleLocalPosition
+# <-- remove until hear
 
   - topic: /fmu/out/vehicle_odometry
     type: px4_msgs::msg::VehicleOdometry
@@ -80,8 +81,15 @@ publications:
   - topic: /fmu/out/home_position
     type: px4_msgs::msg::HomePosition
 
+  - topic: /fmu/out/monitoring
+    type: px4_msgs::msg::Monitoring
+
+  - topic: /fmu/out/log_message
+    type: px4_msgs::msg::LogMessage
+
 # Create uORB::Publication
 subscriptions:
+# remove from --->
   - topic: /fmu/in/register_ext_component_request
     type: px4_msgs::msg::RegisterExtComponentRequest
 
@@ -108,10 +116,12 @@ subscriptions:
 
   - topic: /fmu/in/manual_control_input
     type: px4_msgs::msg::ManualControlSetpoint
+# <--- remove until hear
 
   - topic: /fmu/in/offboard_control_mode
     type: px4_msgs::msg::OffboardControlMode
 
+# remove from --->
   - topic: /fmu/in/onboard_computer_status
     type: px4_msgs::msg::OnboardComputerStatus
 
@@ -126,10 +136,12 @@ subscriptions:
 
   - topic: /fmu/in/telemetry_status
     type: px4_msgs::msg::TelemetryStatus
+# <--- remove until hear
 
   - topic: /fmu/in/trajectory_setpoint
     type: px4_msgs::msg::TrajectorySetpoint
 
+# remove from --->
   - topic: /fmu/in/vehicle_attitude_setpoint
     type: px4_msgs::msg::VehicleAttitudeSetpoint
 
@@ -162,6 +174,7 @@ subscriptions:
 
   - topic: /fmu/in/aux_global_position
     type: px4_msgs::msg::VehicleGlobalPosition
+# <--- remove until hear
 
 # Create uORB::PublicationMulti
 subscriptions_multi:
